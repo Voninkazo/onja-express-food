@@ -95,3 +95,38 @@ button.served:hover {
 	background-color: hsl(8, 85%, 50%);
 	color: white;
 }
+
+.add-order {
+	padding: 5px;
+	border-radius: 3px;
+	border: 1px solid black;
+	cursor: pointer;
+	text-transform: uppercase;
+}
+
+
+.outer-modal {
+	display: grid;
+	place-items: center center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: hsla(0, 0%, 0%, 0.7);
+	pointer-events: none;
+	opacity: 0;
+}
+
+.outer-modal.open {
+	pointer-events: all;
+	opacity: 1;
+}
+
+.inner-modal {
+	background-color: #ccc;
+	min-width: 500px;
+	min-height: 500px;
+	padding: 30px;
+	margin: 20px;
+}
