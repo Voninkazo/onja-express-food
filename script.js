@@ -4,8 +4,9 @@ const outerModal = document.querySelector('.outer-modal');
 const innerModal = document.querySelector('.inner-modal');
 
 btns.addEventListener('click', event => {
+  event.preventDefault();
   outerModal.classList.add('open');
-  innerModal.innerHTML =`
+  innerModal.innerHTML = `
   <form>
 				<p>Your name :</p>
 				<input class="input-form" type="text" id="name" name="name" placeholder="Enter your name here"
@@ -36,12 +37,32 @@ btns.addEventListener('click', event => {
 			</form>
   `
 });
-const name = document.querySelector('#name');
 
+const myName = document.getElementById('name');
 const submitBtn = document.getElementById('btn-submit');
-submitBtn.addEventListener('click', event => {
-  const title = document.createElement('span');
-  title.textContent = `${name.value}`;
-  const orderList = document.getElementById('name-list');
-  orderList.appendChild(title);
+
+const myDish = () => {
+  const myHTML = `
+<div class="order" data-dish="romazava" data-size="large" data-amount="2">
+  <span class="title">
+  ${myName.value}
+  </span>
+  <button class="details">Details</button>
+  <button class="served">Delete order</button>
+  </div>
+`;
+  return myHTML;
+}
+
+submitBtn.addEventListener('click', ($event) => {
+  $event.preventDefault();
+  const myFood = myDish();
+  const postList = document.querySelector('#name-list');
+  postList.insertAdjacentHTML('beforeend', myFood);
+  outerModal.classList.remove('open');
 });
+
+// const name = document.getElementById('name');
+  // const size = document.querySelector('[name="size"]');
+  // const quantity = document.getElementById('quantity');
+  // const dish = document.getElementById('dish');
