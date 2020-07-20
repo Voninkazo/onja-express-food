@@ -39,23 +39,23 @@ btns.addEventListener('click', event => {
 </form>
   `;
 });
+
 // grab form
-
-
-const myDish = document.querySelector('[name="dish"]');
-const mySize = document.querySelector('[name="size"]');
-const myQuantity = document.querySelector('#quantity');
 
 // show details 
 
 
 // submit form
-window.addEventListener('click', (event) => {
+window.addEventListener('submit', (event) => {
 	event.preventDefault();
-	if (event.target.matches("button.submitOrder")) {
+	if (event.target.matches('form')) {
+		const getForm = document.getElementById('form');
+		const myDish = document.querySelector('[name="dish"]');
+		const mySize = document.querySelector('[name="size"]');
+		const myQuantity = document.querySelector('#quantity');
 		const myName = document.getElementById('name');
 		const myhtml = `
-	<div class="order" data-dish="romazava" data-size="large" data-amount="2">
+	<div class="order" data-dish=${myDish.value} data-size=${mySize.value} data-amount=${myQuantity.value}>
 		<span class="title">
 			${myName.value}
 		</span>
@@ -66,11 +66,19 @@ window.addEventListener('click', (event) => {
 		event.target = myhtml;
 		const orderList = document.querySelector('.order-list');
 		orderList.insertAdjacentHTML('beforeend', myhtml);
+		outerModal.classList.remove('open');
+		getForm.reset();
 	}
 });
 
-// if (event.target.matches("details")) {
+window.addEventListener('change', (event) => {
+	event.preventDefault();
+	if (event.target.matches("details")) {
 
+	}
+});
+
+// 
 // }
 // if (event.target.matches("served")) {
 
