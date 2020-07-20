@@ -67,29 +67,40 @@ window.addEventListener('submit', (event) => {
 });
 
 // show details
-const handleDetail = (event) => {
-	const detailButton = event.target;
-	const myOrder = detailButton.closest('.order'); // to get the detail
-	if (detailButton.target.matches('.details')) {
+window.addEventListener('click', (event) => {
+	if (event.target.matches('.details')) {
 		outerModal.classList.add('open');// show the modal again
+		const myName = document.getElementById('name');
+		const myDish = document.querySelector('[name="dish"]');console.log('myDish')
+		const mySize = document.querySelector('[name="size"]');
+		const myQuantity = document.querySelector('#quantity');
 		const details = `
 		<h1>Onja Express Food</h1>
-		<h2>Order List</h2>
+		<h2>${myName}</h2>
 		<div>
-			<p> ${myOrder.dataset.myDish} 
-				${myOrder.dataset.mySize}
-				${myOrder.dataset.myQuantity}
+			<p> ${myDish} 
+				${mySize}
+				${myQuantity}
 			</p>
+			<img src="./images/fish.jpeg" alt="My photo">
 		</div>
 		`;
 		innerModal.innerHTML = details;
 	}
-};
+});
+
+const handleEscp = () => {
+	if(key === "Escape") {
+		outerModal.classList.remove('open');
+	}
+}
 
 // handle delete button
 
-const handleDeleteButton = (event) => {
-	if (event.matches('.served')) {
-		event.closest('.order').remove(); // delete the order
+window.addEventListener('click', (event) => {
+	const order = event.currentTarget;
+	if (event.target.matches('.served')) {
+		order.reset();
+		// delete the order
 	}
-}
+});
