@@ -40,11 +40,6 @@ btns.addEventListener('click', event => {
   `;
 });
 
-// grab form
-
-// show details 
-
-
 // submit form
 window.addEventListener('submit', (event) => {
 	event.preventDefault();
@@ -64,22 +59,37 @@ window.addEventListener('submit', (event) => {
 	</div>
 `;
 		event.target = myhtml;
-		const orderList = document.querySelector('.order-list');
-		orderList.insertAdjacentHTML('beforeend', myhtml);
-		outerModal.classList.remove('open');
-		getForm.reset();
+		const orderList = document.querySelector('.order-list'); // grab the div
+		orderList.insertAdjacentHTML('beforeend', myhtml); // append the new html
+		outerModal.classList.remove('open'); // remove modal outer
+		getForm.reset();// reset form
 	}
 });
 
-window.addEventListener('change', (event) => {
-	event.preventDefault();
-	if (event.target.matches("details")) {
-
+// show details
+const handleDetail = (event) => {
+	const detailButton = event.target;
+	const myOrder = detailButton.closest('.order'); // to get the detail
+	if (detailButton.target.matches('.details')) {
+		outerModal.classList.add('open');// show the modal again
+		const details = `
+		<h1>Onja Express Food</h1>
+		<h2>Order List</h2>
+		<div>
+			<p> ${myOrder.dataset.myDish} 
+				${myOrder.dataset.mySize}
+				${myOrder.dataset.myQuantity}
+			</p>
+		</div>
+		`;
+		innerModal.innerHTML = details;
 	}
-});
+};
 
-// 
-// }
-// if (event.target.matches("served")) {
+// handle delete button
 
-// }
+const handleDeleteButton = (event) => {
+	if (event.matches('.served')) {
+		event.closest('.order').remove(); // delete the order
+	}
+}
