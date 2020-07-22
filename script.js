@@ -50,7 +50,7 @@ window.addEventListener('submit', (event) => {
 		const myQuantity = document.querySelector('#quantity');
 		const myName = document.getElementById('name');
 		const myhtml = `
-	<div class="order" data-dish=${myDish.value} data-size=${mySize.value} data-amount=${myQuantity.value}>
+	<div class="order" data-dish="${myDish.value}" data-size="${mySize.value}" data-amount="${myQuantity.value}" name="${myName.value}" >
 		<span class="title">
 			${myName.value}
 		</span>
@@ -69,38 +69,45 @@ window.addEventListener('submit', (event) => {
 // show details
 window.addEventListener('click', (event) => {
 	if (event.target.matches('.details')) {
-		outerModal.classList.add('open');// show the modal again
-		const myName = document.getElementById('name');
-		const myDish = document.querySelector('[name="dish"]');console.log('myDish')
-		const mySize = document.querySelector('[name="size"]');
-		const myQuantity = document.querySelector('#quantity');
+		;// show the modal again
+		const order = event.target.closest('.order');
+		const { name, dish, size, amount } = order;
 		const details = `
 		<h1>Onja Express Food</h1>
-		<h2>${myName}</h2>
+		<h2>${name}</h2>
 		<div>
-			<p> ${myDish} 
-				${mySize}
-				${myQuantity}
+			<p> ${dish} 
+				${size}
+				${amount}
 			</p>
 			<img src="./images/fish.jpeg" alt="My photo">
 		</div>
 		`;
 		innerModal.innerHTML = details;
 	}
+	outerModal.classList.add('open');
 });
 
-const handleEscp = () => {
-	if(key === "Escape") {
+// hnadle escape key to quite the modal
+const handleEscp = (event) => {
+	if (event.key === "Escape") {
 		outerModal.classList.remove('open');
 	}
 }
 
+window.addEventListener('keydown', handleEscp);
+
 // handle delete button
 
+const deleteBtn = order => {
+	order.remove();
+};
+
+
 window.addEventListener('click', (event) => {
-	const order = event.currentTarget;
 	if (event.target.matches('.served')) {
-		order.reset();
+		const oreder = event.target.closest('.order');
+		deleteBtn();
 		// delete the order
 	}
 });
